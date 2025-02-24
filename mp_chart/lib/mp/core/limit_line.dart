@@ -11,6 +11,8 @@ class LimitLine extends ComponentBase {
   /// the width of the limit line
   double _lineWidth = 2;
 
+  double _labelAngle = 0.0;
+
   /// the color of the limit line
   Color _lineColor = Color.fromARGB(255, 237, 91, 91);
 
@@ -52,6 +54,14 @@ class LimitLine extends ComponentBase {
   // ignore: unnecessary_getters_setters
   set lineColor(Color value) {
     _lineColor = value;
+  }
+
+  // ignore: unnecessary_getters_setters
+  double get labelAngle => _labelAngle;
+
+  // ignore: unnecessary_getters_setters
+  set labelAngle(double value) {
+    _labelAngle = value;
   }
 
   /// Enables the line to be drawn in dashed mode, e.g. like this "- - - - - -"

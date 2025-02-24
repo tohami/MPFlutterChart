@@ -128,6 +128,12 @@ class YAxisRenderer extends AxisRenderer {
 
     // draw
     for (int i = from; i < to; i++) {
+
+      //@added by tohami to prevent nan crash
+      if(positions[i * 2 + 1].isNaN)
+        continue ;
+      //@end of add
+
       String text = _yAxis.getFormattedLabel(i);
 
       axisLabelPaint.text =

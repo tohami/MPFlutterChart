@@ -275,6 +275,12 @@ abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
     int high = _values.length - 1;
     int closest = high;
 
+    //@added by tohami to prevent deadlock cause of no while breack
+    int unchangedCounter = 0; // Counter to track how many times low and high remain the same
+    int previousLow = low;
+    int previousHigh = high;
+    //@end of added section
+
     while (low < high) {
       int m = (low + high) ~/ 2;
 
@@ -302,8 +308,25 @@ abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
           low = m + 1;
         }
       }
-
       closest = high;
+
+      //@added by tohami to prevent deadlock cause of no while breack
+      // Check if low and high have not changed in this iteration
+      if (low == previousLow && high == previousHigh) {
+        unchangedCounter++;
+      } else {
+        unchangedCounter = 0; // Reset the counter if low or high changes
+      }
+
+      // Break the loop if low and high are unchanged for 3 iterations
+      if (unchangedCounter >= 3) {
+        break;
+      }
+
+      // Update previousLow and previousHigh for the next iteration
+      previousLow = low;
+      previousHigh = high;
+      //@end of added section
     }
 
     if (closest != -1) {

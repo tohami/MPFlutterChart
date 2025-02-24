@@ -93,6 +93,7 @@ class LineChartRenderer extends LineRadarRenderer {
   }
 
   void drawDataSet(Canvas c, ILineDataSet dataSet) {
+    //@tohami
     if (dataSet.getEntryCount() < 1) return;
 
     renderPaint..strokeWidth = dataSet.getLineWidth();

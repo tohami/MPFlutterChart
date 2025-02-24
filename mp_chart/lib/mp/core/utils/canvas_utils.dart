@@ -10,6 +10,11 @@ abstract class CanvasUtils {
       {DashPathEffect effect}) {
     if (effect == null) {
       for (int i = offset; i < count; i += 4) {
+
+        //@added by tohami to prevent nan crash
+        if (pts[i].isNaN || pts[i+1].isNaN || pts[i+2].isNaN || pts[i+3].isNaN) continue;
+        //@end of add
+
         canvas.drawLine(ui.Offset(pts[i], pts[i + 1]),
             ui.Offset(pts[i + 2], pts[i + 3]), paint);
       }

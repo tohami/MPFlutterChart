@@ -471,23 +471,32 @@ class ViewPortHandler {
   }
 
   bool isInBoundsLeft(double x) {
-    if (x == null) return false;
+    //@changed by tohami
+    // if (x == null) return false;
+    if (x == null || x.isInfinite || x.isNaN) return false;
+
     return _contentRect.left <= x + 1;
   }
 
   bool isInBoundsRight(double x) {
-    if (x == null) return false;
+    //@changed by tohami
+    // if (x == null) return false;
+    if (x == null || x.isInfinite || x.isNaN) return false;
     x = ((x * 100.0).toInt()) / 100.0;
     return _contentRect.right >= x - 1;
   }
 
   bool isInBoundsTop(double y) {
-    if (y == null) return false;
+    //@changed by tohami
+    // if (y == null) return false;
+    if (y == null || y.isInfinite || y.isNaN) return false;
     return _contentRect.top <= y;
   }
 
   bool isInBoundsBottom(double y) {
-    if (y == null) return false;
+    //@changed by tohami
+    // if (y == null) return false;
+    if (y == null || y.isInfinite || y.isNaN) return false;
     y = ((y * 100.0).toInt()) / 100.0;
     return _contentRect.bottom >= y;
   }

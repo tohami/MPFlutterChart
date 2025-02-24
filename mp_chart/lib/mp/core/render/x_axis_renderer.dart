@@ -400,7 +400,7 @@ class XAxisRenderer extends AxisRenderer {
   void renderLimitLineLabel(Canvas c, LimitLine limitLine,
       List<double> position, double yOffset) {
     String label = limitLine.label;
-
+    double angle = limitLine.labelAngle ;
     // if drawing the limit-value label is enabled
     if (label != null && label.isNotEmpty) {
       var painter = PainterUtils.create(
@@ -419,15 +419,23 @@ class XAxisRenderer extends AxisRenderer {
         painter.layout();
         var offset = Offset(position[0] + xOffset,
             viewPortHandler.contentTop() + yOffset + labelLineHeight);
-        CanvasUtils.renderLimitLabelBackground(c, painter, offset, limitLine);
-        painter.paint(c, offset);
+        c.save();
+        c.translate(offset.dx, offset.dy);
+        c.rotate(angle);
+        CanvasUtils.renderLimitLabelBackground(c, painter, Offset.zero, limitLine);
+        painter.paint(c, Offset.zero);
+        c.restore();
       } else if (labelPosition == LimitLabelPosition.RIGHT_BOTTOM) {
         painter.textAlign = TextAlign.left;
         painter.layout();
         var offset = Offset(position[0] + xOffset,
             viewPortHandler.contentBottom() - yOffset - painter.height);
-        CanvasUtils.renderLimitLabelBackground(c, painter, offset, limitLine);
-        painter.paint(c, offset);
+        c.save();
+        c.translate(offset.dx, offset.dy);
+        c.rotate(angle);
+        CanvasUtils.renderLimitLabelBackground(c, painter, Offset.zero, limitLine);
+        painter.paint(c, Offset.zero);
+        c.restore();
       } else if (labelPosition == LimitLabelPosition.CENTER_TOP) {
         final double labelLineHeight =
         Utils.calcTextHeight(painter, label).toDouble();
@@ -435,15 +443,23 @@ class XAxisRenderer extends AxisRenderer {
         painter.layout();
         var offset = Offset(position[0] - painter.width / 2,
             viewPortHandler.contentTop() + yOffset + labelLineHeight);
-        CanvasUtils.renderLimitLabelBackground(c, painter, offset, limitLine);
-        painter.paint(c, offset);
+        c.save();
+        c.translate(offset.dx, offset.dy);
+        c.rotate(angle);
+        CanvasUtils.renderLimitLabelBackground(c, painter, Offset.zero, limitLine);
+        painter.paint(c, Offset.zero);
+        c.restore();
       } else if (labelPosition == LimitLabelPosition.CENTER_BOTTOM) {
         painter.textAlign = TextAlign.right;
         painter.layout();
         var offset = Offset(position[0] - painter.width / 2,
             viewPortHandler.contentBottom() - yOffset - painter.height);
-        CanvasUtils.renderLimitLabelBackground(c, painter, offset, limitLine);
-        painter.paint(c, offset);
+        c.save();
+        c.translate(offset.dx, offset.dy);
+        c.rotate(angle);
+        CanvasUtils.renderLimitLabelBackground(c, painter, Offset.zero, limitLine);
+        painter.paint(c, Offset.zero);
+        c.restore();
       } else if (labelPosition == LimitLabelPosition.LEFT_TOP) {
         painter.textAlign = TextAlign.right;
         final double labelLineHeight =
@@ -451,15 +467,24 @@ class XAxisRenderer extends AxisRenderer {
         painter.layout();
         var offset = Offset(position[0] - xOffset - painter.width,
             viewPortHandler.contentTop() + yOffset + labelLineHeight);
-        CanvasUtils.renderLimitLabelBackground(c, painter, offset, limitLine);
-        painter.paint(c, offset);
+        c.save();
+        c.translate(offset.dx, offset.dy);
+        c.rotate(angle);
+        CanvasUtils.renderLimitLabelBackground(c, painter, Offset.zero, limitLine);
+        painter.paint(c, Offset.zero);
+        c.restore();
       } else {
         painter.textAlign = TextAlign.right;
         painter.layout();
         var offset = Offset(position[0] - xOffset - painter.width,
             viewPortHandler.contentBottom() - yOffset - painter.height);
+        c.save();
+        c.translate(offset.dx, offset.dy);
+        c.rotate(angle);
+        c.translate(xOffset, -offset.dy);
         CanvasUtils.renderLimitLabelBackground(c, painter, offset, limitLine);
         painter.paint(c, offset);
+        c.restore();
       }
     }
   }
